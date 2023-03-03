@@ -36,6 +36,12 @@ func Main3() {
 	fmt.Println(foo.Marshal(data))
 	fmt.Println(data)
 
+	// fmt.Println(string(foo.Marshal(data))) // Changed.
+
+	bytes, err := foo.Marshal(data) // <-------------------This line
+	println(string(bytes))
+	println(err)
+
 	type myInt struct {
 		IntValue int
 	}
