@@ -30,5 +30,18 @@ func main() {
 
 	log.Fatal(app.Listen(":3000"))
 	// http://localhost:3000/
+
+	app.Get("/love/:param", func (c *fiber.Ctx) error {
+		return c.SendString("I love : " + c.Params("param"))
+	})
+
+	// http://localhost:3000/love/minh%20thu
+	// http://localhost:3000/love/phuong%20ly
+	
 	
 }
+
+// C:\Users\admin>netstat -ano | findstr ":3000"
+//  TCP    0.0.0.0:3000           0.0.0.0:0              LISTENING       18836
+// taskkill /PID 18836 /F
+
