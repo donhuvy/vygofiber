@@ -1,15 +1,34 @@
 package main
 
 import (
-	"github.com/donhuvy/vygojson/sample1"
-	"github.com/donhuvy/vygojson/sample2"
-	"github.com/donhuvy/vygojson/sample3"
-	"github.com/donhuvy/vygojson/sample4"
+	"fmt"
+	"log"
+
+	"github.com/gofiber/fiber/v2"
+
 )
 
 func main() {
-	sample1.Main1()
-	sample2.Main2()
-	sample3.Main3()
-	sample4.Main4()
+	fmt.Println("abc")
+	app := fiber.New()
+
+	app.Get("/", func(ctx *fiber.Ctx) error {
+		return ctx.SendString("Chao em Minh Thu")
+	})
+
+	app.Get("/:param", func(ctx *fiber.Ctx) error {
+		return ctx.SendString("param: " + ctx.Params("param"))
+	})
+
+	app.Post("/", func(ctx *fiber.Ctx) error {
+		return ctx.SendString("POST aha")
+	})
+
+	app.Static("/static", "./public")
+	// http://localhost:3000/static/foo.txt
+	app.Static("/files", "./files")
+
+	log.Fatal(app.Listen(":3000"))
+	// http://localhost:3000/
+	
 }
